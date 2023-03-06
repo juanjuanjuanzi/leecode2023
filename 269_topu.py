@@ -5,8 +5,13 @@ class Solution(object):
         :rtype: str
         """
         child={}
+        g=defaultdict(list)
         n=len(words)
         degree={}
+        #为words中的所有字母初始化入度
+        for i in words:
+            for j in i:
+                degree[j]=0
         for i in range(n-1):
             j=i+1
             m=min(len(words[i]),len(words[j]))
@@ -14,31 +19,20 @@ class Solution(object):
                 if words[i][k]!=words[j][k]:
                     w1=words[i][k]
                     w2=words[j][k]
-                    child[w1]=w2
-                    if w2 not in child:
-                        child[w2]=None
-                    if w2 in degree:
-                        degree[w2]+=1
-                    else:
-                        degree[w2]=1
-                    if w1 not in degree:
-                        degree[w1]=0
+                    
+                    g[w1].append(w2)
+                    degree[w2]+=1
                     break
                 elif k==(m-1) and len(words[i])>len(words[j]):
                     return ""
-        if len(degree)==0:
-            return words[0][0]
-        q=deque()
+        
+        q=[]
         for k in degree:           
-            if degree[k]>1:
-                return ""
             if degree[k]==0:
                 q.append(k)
-        if len(q)!=1:
-            return ""
-        ans=""
-        head=q.pop()
-        while head:
-            ans+=head
-            head=child[head]
-        return ans
+        for u in q:
+            for v in g[u]:
+                degree[v]-=1
+                if degree[v]==0:
+                    q.append(v)
+        return ''.join(q) if len(q)==len(degree) else ""
