@@ -8,6 +8,7 @@ class Solution(object):
         :rtype: bool
         """
         #采用dfs
+        #访问的叶子节点只能为destination,且访问路径中无环
         vis=[0]*n
         g=[[] for _ in range(n)]
         for u,v in edges:
