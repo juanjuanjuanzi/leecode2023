@@ -51,4 +51,30 @@ class Solution:
             return False
         '''
         return False
+    
+'''
+执行用时：
+28 ms
+, 在所有 Python3 提交中击败了
+96.46%
+的用户
+内存消耗：
+14.9 MB
+, 在所有 Python3 提交中击败了
+22.33%
+的用户
+'''
+class Solution:
+    def guessNumber(self, n: int) -> int:
+        left=1
+        right=n
+        while left < right:
+            mid=(left + right)>>1
+            
+            if guess(mid)<=0:
+                right=mid                
+            else:
+                left=mid+1
+        
+        return left
         
