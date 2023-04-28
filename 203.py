@@ -27,3 +27,26 @@ class Solution:
             pre=pre.next
             cur=cur.next
         return init.next
+
+'''
+执行用时：
+56 ms
+, 在所有 Python3 提交中击败了
+91.98%
+的用户
+内存消耗：
+19.5 MB
+, 在所有 Python3 提交中击败了
+10.57%
+的用户
+'''
+class Solution:
+    def removeElements(self, head: Optional[ListNode], val: int) -> Optional[ListNode]:   
+        init=ListNode(val=0,next=head)
+        cur=init
+        while cur.next:
+            if cur.next.val==val:
+                cur.next=cur.next.next
+            else:
+                cur=cur.next            
+        return init.next
